@@ -1,12 +1,45 @@
 ﻿<!DOCTYPE html>
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title - Mi aplicación ASP.NET</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .cart-container {
+            position: relative;
+            display: inline-block;
+            color: white;
+            text-decoration: none;
+            padding: 15px;
+        }
+
+        .cart-icon {
+            font-size: 15px;
+            color: white;
+        }
+
+        .cart-badge {
+            position: absolute;
+            top: -20px;
+            right: 1px;
+            background-color: #f08804; /* Color naranja Amazon */
+            color: #000;
+            border-radius: 50%;
+            padding: 3px 2px;
+            font-size: 10px;
+            font-weight: bold;
+        }
+
+        .cart-text {
+            font-weight: bold;
+            font-size: 14px;
+            vertical-align: bottom;
+        }
+    </style>
 </head>
 <body>
     <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark bg-dark">
@@ -22,6 +55,15 @@
                     <li>@Html.ActionLink("Acerca de", "About", "Home", new { area = "" }, new { @class = "nav-link" })</li>
                     <li>@Html.ActionLink("Contacto", "Contact", "Home", new { area = "" }, new { @class = "nav-link" })</li>
                 </ul>
+                <a href="@Url.Action("Carrito", "Ventas")" class="cart-container">
+                    <div style="display: flex; align-items: flex-end;">
+                        <div style="position: relative;">
+                            <i class="fa-solid fa-cart-shopping cart-icon"></i>
+                            <span id="cart-count" class="cart-badge">0</span>
+                        </div>
+                        <span class="cart-text ms-1">Carrito</span>
+                    </div>
+                </a>
             </div>
         </div>
     </nav>
@@ -37,4 +79,5 @@
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)
 </body>
+
 </html>

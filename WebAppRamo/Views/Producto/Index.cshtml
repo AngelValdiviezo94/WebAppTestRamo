@@ -14,7 +14,8 @@
         <tr>
             <th>Id</th>
             <th>Nombre</th>
-            <th>Código</th>            
+            <th>Código</th>
+            <th>Precio</th>
         </tr>
     </thead>
     <tbody>
@@ -24,14 +25,25 @@
                 <td>@Html.DisplayFor(modelItem => item.Id)</td>
                 <td>@Html.DisplayFor(modelItem => item.Nombre)</td>
                 <td>@Html.DisplayFor(modelItem => item.Codigo)</td>                
+                <td>@Html.DisplayFor(modelItem => item.PrecioUnitario)</td>                
                 <td>
-                    @Html.ActionLink("Editar", "Edit", new { id = item.Id }, new { @class = "btn btn-primary btn-sm" }) |
+                    <button type="button" class="btn btn-warning btn-sm btn-agregar-carrito"
+                            title="Añadir al carrito"
+                            data-id="@item.Id|@item.PrecioUnitario"
+                            data-nombre="@item.Nombre">
+                        <i class="fa fa-shopping-cart"></i>
+                    </button>
+                    |
+                    <a href="@Url.Action("Edit", new { id = item.Id })" class="btn btn-primary btn-sm" title="Editar">
+                        <i class="fa-solid fa-pencil"></i>
+                    </a>
+                    |
                     <button type="button" class="btn btn-danger btn-sm btn-eliminar"
                             data-id="@item.Id"
                             data-nombre="@item.Nombre @item.Codigo"
                             data-bs-toggle="modal"
                             data-bs-target="#modalEliminar">
-                        Eliminar
+                        <i class="fa-solid fa-trash-can"></i>
                     </button>
                 </td>
             </tr>
@@ -66,6 +78,8 @@
     </div>
 </div>
 
+<link href="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css" rel="stylesheet">
+
 @section Scripts {
     <script>
         $(document).ready(function () {
@@ -80,6 +94,51 @@
                 $("#IdClienteEliminar").val(id);
                 $("#NombreClienteEliminar").text(nombre);
             });
+
+            var contador = 0;
+
+            $(".btn-agregar-carrito").click(function () {
+                var btn = $(this);
+                var idProducto = btn.data("id").split('|')[0];
+                var precio_unitario = btn.data("id").split('|')[1];
+
+                var nombre = $(this).data("nombre");
+
+                // Incrementar contador
+                contador++;
+
+                // Actualizar visualmente el badge naranja
+                $("#cart-count").text(contador);
+
+                // Animación simple para que el usuario note el cambio
+                $("#cart-count").fadeOut(100).fadeIn(100);
+
+                console.log("Producto añadido: " + nombre);
+
+                // Llamada AJAX al controlador
+                $.ajax({
+                    url: '@Url.Action("AgregarProducto", "Carrito")', // Acción "AgregarProducto" en "CarritoController"
+                    type: 'POST',
+                    data: { id: idProducto, precio: precio_unitario },
+                    success: function (response) {
+                        if (response.success) {
+                            // Solo si el servidor confirma el guardado, actualizamos la UI
+                            var nuevoTotal = response.cantidadTotal;
+
+                            $("#cart-count").text(nuevoTotal);
+                            $("#cart-count").fadeOut(100).fadeIn(100);
+
+                            console.log("Confirmado: " + nombre + " añadido.");
+                        } else {
+                            alert("Error: " + response.message);
+                        }
+                    },
+                    error: function () {
+                        alert("No se pudo conectar con el servidor.");
+                    }
+                });
+            });
+
         });
     </script>
 }

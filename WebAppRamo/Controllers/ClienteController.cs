@@ -31,6 +31,25 @@ namespace WebAppRamo.Controllers
         // GET: Cliente/Create
         public ActionResult Create()
         {
+            List<cl_EstadoCivil> LstEstCivil = consu.ListaEstadoCivil(ref msmError);
+            List<cl_Tipo_Identificacion> LstTpProd = consu.ListaTipoIdenticacion(ref msmError);
+
+            var listaTipos = LstTpProd
+            .Select(t => new SelectListItem
+            {
+                Value = t.Id.ToString(),
+                Text = t.Nombre
+            }).ToList();
+
+            var listaEstadoCivil = LstEstCivil
+            .Select(t => new SelectListItem
+            {
+                Value = t.Id.ToString(),
+                Text = t.Nombre
+            }).ToList();
+
+            ViewBag.EstadoCivilLst = listaEstadoCivil;
+            ViewBag.TiposIdentificacion = listaTipos;
             return View();
         }
 
@@ -42,9 +61,8 @@ namespace WebAppRamo.Controllers
             {
                 msmError = string.Empty;
                 List<cl_Cliente> LstCliente = new List<cl_Cliente>();
-                collection.IdTipoIdentificacion = 1;
-                collection.TendenciaCompra = "1";
-                collection.EstadoCivil = "C";
+                
+                collection.TendenciaCompra = 1;                
                 collection.UsuarioCreacion = "AngelValdiviezo";
                 LstCliente.Add(collection);
 
@@ -65,6 +83,26 @@ namespace WebAppRamo.Controllers
             cl_Cliente Cliente = new cl_Cliente();
 
             Cliente = consu.ClienteById(id, ref msmError);
+
+            List<cl_Tipo_Identificacion> LstTpProd = consu.ListaTipoIdenticacion(ref msmError);
+            List<cl_EstadoCivil> LstEstCivil = consu.ListaEstadoCivil(ref msmError);
+
+            var listaTipos = LstTpProd
+            .Select(t => new SelectListItem
+            {
+                Value = t.Id.ToString(),
+                Text = t.Nombre
+            }).ToList();
+
+            var listaEstadoCivil = LstEstCivil
+            .Select(t => new SelectListItem
+            {
+                Value = t.Id.ToString(),
+                Text = t.Nombre
+            }).ToList();
+
+            ViewBag.TiposIdentificacion = listaTipos;
+            ViewBag.EstadoCivilLst = listaEstadoCivil;
 
             return View(Cliente);
         }

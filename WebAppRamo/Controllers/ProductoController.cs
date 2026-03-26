@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Services.Description;
 
 namespace WebAppRamo.Controllers
 {
@@ -18,8 +19,9 @@ namespace WebAppRamo.Controllers
         {
             msmError = string.Empty;
             List<cl_Producto> LstClientes = new List<cl_Producto>();
-
+            
             LstClientes = consu.ListaProducto(ref msmError);
+            
 
             return View(LstClientes.OrderBy(x => x.Id).ToList());
         }
@@ -33,16 +35,33 @@ namespace WebAppRamo.Controllers
         // GET: Producto/Create
         public ActionResult Create()
         {
+            List<cl_Tipo_Producto> LstTpProd = new List<cl_Tipo_Producto>();
+            LstTpProd = consu.ListaTipoProducto(ref msmError);
+            
+            var listaTipos = LstTpProd
+            .Select(t => new SelectListItem
+            {
+                Value = t.Id.ToString(),
+                Text = t.Nombre
+            }).ToList();
+
+            ViewBag.TiposProducto = listaTipos;
+
             return View();
         }
 
         // POST: Producto/Create
         [HttpPost]
-        public ActionResult Create(FormCollection collection)
+        public ActionResult Create(cl_Producto collection)
         {
             try
             {
-                // TODO: Add insert logic here
+                msmError = string.Empty;
+                List<cl_Producto> LstCliente = new List<cl_Producto>();                
+                collection.UsuarioCreacion = "AngelValdiviezo";
+                LstCliente.Add(collection);
+
+                consu.RegistraProducto(LstCliente, ref msmError);
 
                 return RedirectToAction("Index");
             }
@@ -55,16 +74,35 @@ namespace WebAppRamo.Controllers
         // GET: Producto/Edit/5
         public ActionResult Edit(int id)
         {
-            return View();
+            msmError = string.Empty;
+            cl_Producto Cliente = new cl_Producto();
+
+            Cliente = consu.ProductoById(id, ref msmError);
+
+            List<cl_Tipo_Producto> LstTpProd = new List<cl_Tipo_Producto>();
+            LstTpProd = consu.ListaTipoProducto(ref msmError);
+
+            var listaTipos = LstTpProd
+            .Select(t => new SelectListItem
+            {
+                Value = t.Id.ToString(),
+                Text = t.Nombre
+            }).ToList();
+
+            ViewBag.TiposProducto = listaTipos;
+
+            return View(Cliente);
         }
 
         // POST: Producto/Edit/5
         [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
+        public ActionResult Edit(int id, cl_Producto collection)
         {
             try
             {
-                // TODO: Add update logic here
+                msmError = string.Empty;
+                collection.UsuarioModificacion = "AngelValdiviezo";
+                consu.ModificaProducto(collection, ref msmError);
 
                 return RedirectToAction("Index");
             }
@@ -86,7 +124,14 @@ namespace WebAppRamo.Controllers
         {
             try
             {
-                // TODO: Add delete logic here
+                msmError = string.Empty;
+                cl_Producto ObjProducto = new cl_Producto
+                {
+                    Id = id,
+                    UsuarioModificacion = "AngelValdiviezo"
+                };
+
+                consu.EliminaProducto(ObjProducto, ref msmError);
 
                 return RedirectToAction("Index");
             }

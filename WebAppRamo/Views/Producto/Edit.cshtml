@@ -1,0 +1,72 @@
+﻿@model Datos.cl_Producto
+
+@{
+    ViewBag.Title = "Editar Producto";
+}
+
+<div class="container mt-4">
+    <div class="card shadow-sm border-warning">
+        <div class="card-header bg-warning text-dark">
+            <h4 class="mb-0"><i class="glyphicon glyphicon-pencil"></i> Editar Producto: @Model.Nombre</h4>
+        </div>
+        <div class="card-body">
+
+            @using (Html.BeginForm())
+            {
+                @Html.AntiForgeryToken()
+
+                <div class="form-horizontal">
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+                    @* IMPORTANTE: Campo oculto para el ID *@
+                    @Html.HiddenFor(model => model.Id)
+
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            @Html.LabelFor(model => model.Nombre, new { @class = "control-label fw-bold" })
+                            @Html.EditorFor(model => model.Nombre, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.Nombre, "", new { @class = "text-danger" })
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            @Html.LabelFor(model => model.Codigo, new { @class = "control-label fw-bold" })
+                            @Html.EditorFor(model => model.Codigo, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                            @Html.ValidationMessageFor(model => model.Codigo, "", new { @class = "text-danger" })
+                        </div>
+
+                        <div class="col-md-12 mb-3">
+                            @Html.LabelFor(model => model.Stock, new { @class = "control-label fw-bold" })
+                            @Html.EditorFor(model => model.Stock, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.Stock, "", new { @class = "text-danger" })
+                        </div>
+
+                        <div class="col-md-6 mb-3">
+                            @Html.LabelFor(model => model.PrecioUnitario, "Precio Unitario", new { @class = "control-label fw-bold" })
+                            @Html.EditorFor(model => model.PrecioUnitario, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.PrecioUnitario, "", new { @class = "text-danger" })
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            @Html.LabelFor(model => model.IdTipoProducto, "Tipo Producto", new { @class = "control-label fw-bold" })
+                            @Html.DropDownListFor(model => model.IdTipoProducto,
+                                (IEnumerable<SelectListItem>)ViewBag.TiposProducto,
+                                "-- Seleccione Tipo --",
+                                new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.IdTipoProducto, "", new { @class = "text-danger" })
+                        </div>
+
+                    </div>
+
+                    <div class="form-group border-top pt-3">
+                        <button type="submit" class="btn btn-warning px-4 fw-bold">
+                            Actualizar
+                        </button>
+                        @Html.ActionLink("Cancelar", "Index", null, new { @class = "btn btn-outline-secondary px-4 ms-2" })
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

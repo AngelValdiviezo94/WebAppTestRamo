@@ -330,12 +330,49 @@ namespace WebAppRamo
             return ObjRespModelo;
         }
 
-        public RespuestaModelo EliminaProducto(int idProducto, ref string MsmError)
+        public RespuestaModelo EliminaProducto(cl_Producto ObjProducto, ref string MsmError)
         {
             RespuestaModelo ObjRespModelo = new RespuestaModelo();
-            cl_Cliente ObjDenominacion = new cl_Cliente();
+            string MnsRetorno = string.Empty;
             RutaFinal = string.Empty;
-            RutaFinal = string.Concat(serviceUrl, "api/Producto/EliminaProducto?idProducto=", idProducto + "");
+            RutaFinal = string.Concat(serviceUrl, "api/Producto/");
+
+            try
+            {
+                var request = JsonConvert.SerializeObject(ObjProducto);
+                var content = new StringContent(request, Encoding.UTF8, "application/json");
+                var client = new HttpClient();
+                //client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(tokenType, accessToken);
+                client.BaseAddress = new Uri(RutaFinal);
+                var url = string.Format("{0}{1}", RutaFinal, "EliminaProducto");
+                //var response = client.PostAsync(url, content);
+                var response = Task.Run(async () => await client.PostAsync(url, content)).ConfigureAwait(false).GetAwaiter().GetResult();
+
+                if (response.IsSuccessStatusCode)
+                {
+                    var response2 = response.Content.ReadAsStringAsync().Result;
+                    var re = response.RequestMessage;
+                    var request2 = JsonConvert.SerializeObject(response.Content);
+                    ObjRespModelo = JsonConvert.DeserializeObject<RespuestaModelo>(request2);
+                }
+            }
+            catch (Exception ex)
+            {
+                ObjRespModelo.ProcesoExitoso = false;
+                ObjRespModelo.MensajeError = ex.Message;
+            }
+            return ObjRespModelo;
+        }
+
+        #endregion
+
+        #region Tipo Producto
+        public List<cl_Tipo_Producto> ListaTipoProducto(ref string MsmError)
+        {
+            List<cl_Tipo_Producto> LstDenominacion = new List<cl_Tipo_Producto>();
+            cl_Tipo_Producto ObjDenominacion = new cl_Tipo_Producto();
+            RutaFinal = string.Empty;
+            RutaFinal = string.Concat(serviceUrl, "api/TipoProducto/ConsultaTipoProductos");
 
             string LstCelulaJson = string.Empty;
             try
@@ -350,16 +387,121 @@ namespace WebAppRamo
                         var response = request.Content.ReadAsStringAsync().Result;
                         var re = request.RequestMessage;
                         LstCelulaJson = response;
-                        /*
-                        var request2 = JsonConvert.SerializeObject(response.Content);
-                        ObjRespModelo = JsonConvert.DeserializeObject<RespuestaModelo>(request2);
-                        */
+                        LstDenominacion = JsonConvert.DeserializeObject<List<cl_Tipo_Producto>>(response);
+
                     }
                 }
             }
             catch (Exception ex)
             {
                 MsmError = ex.Message;
+            }
+            return LstDenominacion;
+        }
+
+        #endregion
+
+        #region Tipo Identificación
+        public List<cl_Tipo_Identificacion> ListaTipoIdenticacion(ref string MsmError)
+        {
+            List<cl_Tipo_Identificacion> LstDenominacion = new List<cl_Tipo_Identificacion>();
+            cl_Tipo_Identificacion ObjDenominacion = new cl_Tipo_Identificacion();
+            RutaFinal = string.Empty;
+            RutaFinal = string.Concat(serviceUrl, "api/TipoIdentificacion/ConsultaTipoIdentificacion");
+
+            string LstCelulaJson = string.Empty;
+            try
+            {
+                using (HttpClient httpCliente = new HttpClient())
+                {
+                    httpCliente.BaseAddress = new Uri(RutaFinal);
+                    httpCliente.Timeout = new TimeSpan(0, 2, 0);
+                    var request = httpCliente.GetAsync(RutaFinal).Result;
+                    if (request.IsSuccessStatusCode)
+                    {
+                        var response = request.Content.ReadAsStringAsync().Result;
+                        var re = request.RequestMessage;
+                        LstCelulaJson = response;
+                        LstDenominacion = JsonConvert.DeserializeObject<List<cl_Tipo_Identificacion>>(response);
+
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MsmError = ex.Message;
+            }
+            return LstDenominacion;
+        }
+
+        #endregion
+
+        #region Estado Civil
+        public List<cl_EstadoCivil> ListaEstadoCivil(ref string MsmError)
+        {
+            List<cl_EstadoCivil> LstDenominacion = new List<cl_EstadoCivil>();
+            cl_EstadoCivil ObjDenominacion = new cl_EstadoCivil();
+            RutaFinal = string.Empty;
+            RutaFinal = string.Concat(serviceUrl, "api/EstadoCivil/ConsultaEstadoCivil");
+
+            string LstCelulaJson = string.Empty;
+            try
+            {
+                using (HttpClient httpCliente = new HttpClient())
+                {
+                    httpCliente.BaseAddress = new Uri(RutaFinal);
+                    httpCliente.Timeout = new TimeSpan(0, 2, 0);
+                    var request = httpCliente.GetAsync(RutaFinal).Result;
+                    if (request.IsSuccessStatusCode)
+                    {
+                        var response = request.Content.ReadAsStringAsync().Result;
+                        var re = request.RequestMessage;
+                        LstCelulaJson = response;
+                        LstDenominacion = JsonConvert.DeserializeObject<List<cl_EstadoCivil>>(response);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MsmError = ex.Message;
+            }
+            return LstDenominacion;
+        }
+
+        #endregion
+
+        #region Carrito
+        
+        public RespuestaModelo RegistraCarrito(cl_CarritoCab nuevo, ref string MsmError)
+        {
+            RespuestaModelo ObjRespModelo = new RespuestaModelo();
+            string MnsRetorno = string.Empty;
+            RutaFinal = string.Empty;
+            RutaFinal = string.Concat(serviceUrl, "api/Carrito/");
+
+            try
+            {
+                var request = JsonConvert.SerializeObject(nuevo);
+                var content = new StringContent(request, Encoding.UTF8, "application/json");
+                var client = new HttpClient();
+                //client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(tokenType, accessToken);
+                client.BaseAddress = new Uri(RutaFinal);
+                var url = string.Format("{0}{1}", RutaFinal, "GuardaCarrito");
+                //var response = client.PostAsync(url, content);
+                var response = Task.Run(async () => await client.PostAsync(url, content)).ConfigureAwait(false).GetAwaiter().GetResult();
+
+                if (response.IsSuccessStatusCode)
+                {
+                    var response2 = response.Content.ReadAsStringAsync().Result;
+                    var re = response.RequestMessage;
+                    var request2 = JsonConvert.SerializeObject(response.Content);
+                    ObjRespModelo = JsonConvert.DeserializeObject<RespuestaModelo>(request2);
+                }
+            }
+            catch (Exception ex)
+            {
+                ObjRespModelo.ProcesoExitoso = false;
+                ObjRespModelo.MensajeError = ex.Message;
             }
             return ObjRespModelo;
         }
