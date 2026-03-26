@@ -1,7 +1,28 @@
 {
   "Version": 1,
   "WorkspaceRootPath": "C:\\ProyectosAngel\\WebAppRamo\\",
-  "Documents": [],
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{7E73C9B5-A48B-46CF-8FEB-3461CFE57A91}|WebAppRamo\\WebAppRamo.csproj|c:\\proyectosangel\\webappramo\\webappramo\\views\\cliente\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{7E73C9B5-A48B-46CF-8FEB-3461CFE57A91}|WebAppRamo\\WebAppRamo.csproj|solutionrelative:webappramo\\views\\cliente\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7E73C9B5-A48B-46CF-8FEB-3461CFE57A91}|WebAppRamo\\WebAppRamo.csproj|c:\\proyectosangel\\webappramo\\webappramo\\views\\cliente\\create.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{7E73C9B5-A48B-46CF-8FEB-3461CFE57A91}|WebAppRamo\\WebAppRamo.csproj|solutionrelative:webappramo\\views\\cliente\\create.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7E73C9B5-A48B-46CF-8FEB-3461CFE57A91}|WebAppRamo\\WebAppRamo.csproj|c:\\proyectosangel\\webappramo\\webappramo\\controllers\\clientecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{7E73C9B5-A48B-46CF-8FEB-3461CFE57A91}|WebAppRamo\\WebAppRamo.csproj|solutionrelative:webappramo\\controllers\\clientecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7E73C9B5-A48B-46CF-8FEB-3461CFE57A91}|WebAppRamo\\WebAppRamo.csproj|c:\\proyectosangel\\webappramo\\webappramo\\consumo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{7E73C9B5-A48B-46CF-8FEB-3461CFE57A91}|WebAppRamo\\WebAppRamo.csproj|solutionrelative:webappramo\\consumo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D87476DE-7D30-4E8B-B6AB-6AAE0E546663}|Datos\\Datos.csproj|c:\\proyectosangel\\webappramo\\datos\\cl_cliente.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D87476DE-7D30-4E8B-B6AB-6AAE0E546663}|Datos\\Datos.csproj|solutionrelative:datos\\cl_cliente.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
   "DocumentGroupContainers": [
     {
       "Orientation": 0,
@@ -9,7 +30,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": -1,
+          "SelectedChildIndex": 35,
           "Children": [
             {
               "$type": "Bookmark",
@@ -146,6 +167,71 @@
             {
               "$type": "Bookmark",
               "Name": "ST:132:0:{1fc202d4-d401-403c-9834-5b218574bb67}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Create.cshtml",
+              "DocumentMoniker": "C:\\ProyectosAngel\\WebAppRamo\\WebAppRamo\\Views\\Cliente\\Create.cshtml",
+              "RelativeDocumentMoniker": "WebAppRamo\\Views\\Cliente\\Create.cshtml",
+              "ToolTip": "C:\\ProyectosAngel\\WebAppRamo\\WebAppRamo\\Views\\Cliente\\Create.cshtml",
+              "RelativeToolTip": "WebAppRamo\\Views\\Cliente\\Create.cshtml",
+              "ViewState": "AgIAAB4AAAAAAAAAAAAswCYAAAA1AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-03-26T00:00:35.191Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Index.cshtml",
+              "DocumentMoniker": "C:\\ProyectosAngel\\WebAppRamo\\WebAppRamo\\Views\\Cliente\\Index.cshtml",
+              "RelativeDocumentMoniker": "WebAppRamo\\Views\\Cliente\\Index.cshtml",
+              "ToolTip": "C:\\ProyectosAngel\\WebAppRamo\\WebAppRamo\\Views\\Cliente\\Index.cshtml",
+              "RelativeToolTip": "WebAppRamo\\Views\\Cliente\\Index.cshtml",
+              "ViewState": "AgIAAAYAAAAAAAAAAAAAABAAAAAhAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-03-25T23:39:28.718Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "ClienteController.cs",
+              "DocumentMoniker": "C:\\ProyectosAngel\\WebAppRamo\\WebAppRamo\\Controllers\\ClienteController.cs",
+              "RelativeDocumentMoniker": "WebAppRamo\\Controllers\\ClienteController.cs",
+              "ToolTip": "C:\\ProyectosAngel\\WebAppRamo\\WebAppRamo\\Controllers\\ClienteController.cs",
+              "RelativeToolTip": "WebAppRamo\\Controllers\\ClienteController.cs",
+              "ViewState": "AgIAACAAAAAAAAAAAAA9wDIAAAAlAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-25T23:38:54.427Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "cl_Cliente.cs",
+              "DocumentMoniker": "C:\\ProyectosAngel\\WebAppRamo\\Datos\\cl_Cliente.cs",
+              "RelativeDocumentMoniker": "Datos\\cl_Cliente.cs",
+              "ToolTip": "C:\\ProyectosAngel\\WebAppRamo\\Datos\\cl_Cliente.cs",
+              "RelativeToolTip": "Datos\\cl_Cliente.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAQAAAAbAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-25T23:30:38.639Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "Consumo.cs",
+              "DocumentMoniker": "C:\\ProyectosAngel\\WebAppRamo\\WebAppRamo\\Consumo.cs",
+              "RelativeDocumentMoniker": "WebAppRamo\\Consumo.cs",
+              "ToolTip": "C:\\ProyectosAngel\\WebAppRamo\\WebAppRamo\\Consumo.cs",
+              "RelativeToolTip": "WebAppRamo\\Consumo.cs",
+              "ViewState": "AgIAADMAAAAAAAAAAAAhwE0AAABLAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-25T23:27:41.805Z",
+              "EditorCaption": ""
             }
           ]
         }

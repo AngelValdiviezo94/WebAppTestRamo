@@ -1,0 +1,6 @@
+C:\ProyectosAngel\WebAppRamo\Datos\bin\Debug\Datos.dll
+C:\ProyectosAngel\WebAppRamo\Datos\bin\Debug\Datos.pdb
+C:\ProyectosAngel\WebAppRamo\Datos\obj\Debug\Datos.csproj.AssemblyReference.cache
+C:\ProyectosAngel\WebAppRamo\Datos\obj\Debug\Datos.csproj.CoreCompileInputs.cache
+C:\ProyectosAngel\WebAppRamo\Datos\obj\Debug\Datos.dll
+C:\ProyectosAngel\WebAppRamo\Datos\obj\Debug\Datos.pdb
