@@ -61,6 +61,36 @@ namespace WebAppRamo
             return LstDenominacion;
         }
 
+        public cl_Cliente ClienteById(int Id, ref string MsmError)
+        {
+            cl_Cliente ObjDenominacion = new cl_Cliente();
+            RutaFinal = string.Empty;
+            RutaFinal = string.Concat(serviceUrl, "api/Cliente/ConsultaClienteById?Id=",Id + "");
+
+            string LstCelulaJson = string.Empty;
+            try
+            {
+                using (HttpClient httpCliente = new HttpClient())
+                {
+                    httpCliente.BaseAddress = new Uri(RutaFinal);
+                    httpCliente.Timeout = new TimeSpan(0, 2, 0);
+                    var request = httpCliente.GetAsync(RutaFinal).Result;
+                    if (request.IsSuccessStatusCode)
+                    {
+                        var response = request.Content.ReadAsStringAsync().Result;
+                        var re = request.RequestMessage;
+                        LstCelulaJson = response;
+                        ObjDenominacion = JsonConvert.DeserializeObject<cl_Cliente>(response);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MsmError = ex.Message;
+            }
+            return ObjDenominacion;
+        }
+
         public RespuestaModelo RegistraCliente(List<cl_Cliente> nuevo, ref string MsmError)
         {
             RespuestaModelo ObjRespModelo = new RespuestaModelo();
@@ -95,6 +125,244 @@ namespace WebAppRamo
             return ObjRespModelo;
         }
 
+        public RespuestaModelo ModificaCliente(cl_Cliente nuevo, ref string MsmError)
+        {
+            RespuestaModelo ObjRespModelo = new RespuestaModelo();
+            string MnsRetorno = string.Empty;
+            RutaFinal = string.Empty;
+            RutaFinal = string.Concat(serviceUrl, "api/Cliente/");
+
+            try
+            {
+                var request = JsonConvert.SerializeObject(nuevo);
+                var content = new StringContent(request, Encoding.UTF8, "application/json");
+                var client = new HttpClient();
+                //client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(tokenType, accessToken);
+                client.BaseAddress = new Uri(RutaFinal);
+                var url = string.Format("{0}{1}", RutaFinal, "ModificaCliente");
+                //var response = client.PostAsync(url, content);
+                var response = Task.Run(async () => await client.PostAsync(url, content)).ConfigureAwait(false).GetAwaiter().GetResult();
+
+                if (response.IsSuccessStatusCode)
+                {
+                    var response2 = response.Content.ReadAsStringAsync().Result;
+                    var re = response.RequestMessage;
+                    var request2 = JsonConvert.SerializeObject(response.Content);
+                    ObjRespModelo = JsonConvert.DeserializeObject<RespuestaModelo>(request2);
+                }
+            }
+            catch (Exception ex)
+            {
+                ObjRespModelo.ProcesoExitoso = false;
+                ObjRespModelo.MensajeError = ex.Message;
+            }
+            return ObjRespModelo;
+        }
+
+        public RespuestaModelo EliminaCliente(int idCliente, ref string MsmError)
+        {
+            RespuestaModelo ObjRespModelo = new RespuestaModelo();
+            cl_Cliente ObjDenominacion = new cl_Cliente();
+            RutaFinal = string.Empty;
+            RutaFinal = string.Concat(serviceUrl, "api/Cliente/EliminaCliente?idCliente=", idCliente + "");
+
+            string LstCelulaJson = string.Empty;
+            try
+            {
+                using (HttpClient httpCliente = new HttpClient())
+                {
+                    httpCliente.BaseAddress = new Uri(RutaFinal);
+                    httpCliente.Timeout = new TimeSpan(0, 2, 0);
+                    var request = httpCliente.GetAsync(RutaFinal).Result;
+                    if (request.IsSuccessStatusCode)
+                    {
+                        var response = request.Content.ReadAsStringAsync().Result;
+                        var re = request.RequestMessage;
+                        LstCelulaJson = response;
+                        /*
+                        var request2 = JsonConvert.SerializeObject(response.Content);
+                        ObjRespModelo = JsonConvert.DeserializeObject<RespuestaModelo>(request2);
+                        */
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MsmError = ex.Message;
+            }
+            return ObjRespModelo;
+        }
+
+        #endregion
+
+        #region Producto
+        public List<cl_Producto> ListaProducto(ref string MsmError)
+        {
+            List<cl_Producto> LstDenominacion = new List<cl_Producto>();
+            cl_Producto ObjDenominacion = new cl_Producto();
+            RutaFinal = string.Empty;
+            RutaFinal = string.Concat(serviceUrl, "api/Producto/ConsultaProductos");
+
+            //serviceUrl = "https://localhost:44303/api/Denominaciones/ListDenominaciones";
+
+            //serviceUrl = "https://jerapi.teamsoftec.com/api/Denominaciones/ListDenominaciones/";
+
+            string LstCelulaJson = string.Empty;
+            try
+            {
+                using (HttpClient httpCliente = new HttpClient())
+                {
+                    httpCliente.BaseAddress = new Uri(RutaFinal);
+                    httpCliente.Timeout = new TimeSpan(0, 2, 0);
+                    var request = httpCliente.GetAsync(RutaFinal).Result;
+                    if (request.IsSuccessStatusCode)
+                    {
+                        var response = request.Content.ReadAsStringAsync().Result;
+                        var re = request.RequestMessage;
+                        LstCelulaJson = response;
+                        LstDenominacion = JsonConvert.DeserializeObject<List<cl_Producto>>(response);
+
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MsmError = ex.Message;
+            }
+            return LstDenominacion;
+        }
+
+        public cl_Producto ProductoById(int Id, ref string MsmError)
+        {
+            cl_Producto ObjDenominacion = new cl_Producto();
+            RutaFinal = string.Empty;
+            RutaFinal = string.Concat(serviceUrl, "api/Producto/ConsultaProductoById?Id=", Id + "");
+
+            string LstCelulaJson = string.Empty;
+            try
+            {
+                using (HttpClient httpCliente = new HttpClient())
+                {
+                    httpCliente.BaseAddress = new Uri(RutaFinal);
+                    httpCliente.Timeout = new TimeSpan(0, 2, 0);
+                    var request = httpCliente.GetAsync(RutaFinal).Result;
+                    if (request.IsSuccessStatusCode)
+                    {
+                        var response = request.Content.ReadAsStringAsync().Result;
+                        var re = request.RequestMessage;
+                        LstCelulaJson = response;
+                        ObjDenominacion = JsonConvert.DeserializeObject<cl_Producto>(response);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MsmError = ex.Message;
+            }
+            return ObjDenominacion;
+        }
+
+        public RespuestaModelo RegistraProducto(List<cl_Producto> nuevo, ref string MsmError)
+        {
+            RespuestaModelo ObjRespModelo = new RespuestaModelo();
+            string MnsRetorno = string.Empty;
+            RutaFinal = string.Empty;
+            RutaFinal = string.Concat(serviceUrl, "api/Producto/");
+
+            try
+            {
+                var request = JsonConvert.SerializeObject(nuevo);
+                var content = new StringContent(request, Encoding.UTF8, "application/json");
+                var client = new HttpClient();
+                //client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(tokenType, accessToken);
+                client.BaseAddress = new Uri(RutaFinal);
+                var url = string.Format("{0}{1}", RutaFinal, "GuardaProductos");
+                //var response = client.PostAsync(url, content);
+                var response = Task.Run(async () => await client.PostAsync(url, content)).ConfigureAwait(false).GetAwaiter().GetResult();
+
+                if (response.IsSuccessStatusCode)
+                {
+                    var response2 = response.Content.ReadAsStringAsync().Result;
+                    var re = response.RequestMessage;
+                    var request2 = JsonConvert.SerializeObject(response.Content);
+                    ObjRespModelo = JsonConvert.DeserializeObject<RespuestaModelo>(request2);
+                }
+            }
+            catch (Exception ex)
+            {
+                ObjRespModelo.ProcesoExitoso = false;
+                ObjRespModelo.MensajeError = ex.Message;
+            }
+            return ObjRespModelo;
+        }
+
+        public RespuestaModelo ModificaProducto(cl_Producto nuevo, ref string MsmError)
+        {
+            RespuestaModelo ObjRespModelo = new RespuestaModelo();
+            string MnsRetorno = string.Empty;
+            RutaFinal = string.Empty;
+            RutaFinal = string.Concat(serviceUrl, "api/Producto/");
+
+            try
+            {
+                var request = JsonConvert.SerializeObject(nuevo);
+                var content = new StringContent(request, Encoding.UTF8, "application/json");
+                var client = new HttpClient();
+                //client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(tokenType, accessToken);
+                client.BaseAddress = new Uri(RutaFinal);
+                var url = string.Format("{0}{1}", RutaFinal, "ModificaProductos");
+                //var response = client.PostAsync(url, content);
+                var response = Task.Run(async () => await client.PostAsync(url, content)).ConfigureAwait(false).GetAwaiter().GetResult();
+
+                if (response.IsSuccessStatusCode)
+                {
+                    var response2 = response.Content.ReadAsStringAsync().Result;
+                    var re = response.RequestMessage;
+                    var request2 = JsonConvert.SerializeObject(response.Content);
+                    ObjRespModelo = JsonConvert.DeserializeObject<RespuestaModelo>(request2);
+                }
+            }
+            catch (Exception ex)
+            {
+                ObjRespModelo.ProcesoExitoso = false;
+                ObjRespModelo.MensajeError = ex.Message;
+            }
+            return ObjRespModelo;
+        }
+
+        public RespuestaModelo EliminaProducto(int idProducto, ref string MsmError)
+        {
+            RespuestaModelo ObjRespModelo = new RespuestaModelo();
+            cl_Cliente ObjDenominacion = new cl_Cliente();
+            RutaFinal = string.Empty;
+            RutaFinal = string.Concat(serviceUrl, "api/Producto/EliminaProducto?idProducto=", idProducto + "");
+
+            string LstCelulaJson = string.Empty;
+            try
+            {
+                using (HttpClient httpCliente = new HttpClient())
+                {
+                    httpCliente.BaseAddress = new Uri(RutaFinal);
+                    httpCliente.Timeout = new TimeSpan(0, 2, 0);
+                    var request = httpCliente.GetAsync(RutaFinal).Result;
+                    if (request.IsSuccessStatusCode)
+                    {
+                        var response = request.Content.ReadAsStringAsync().Result;
+                        var re = request.RequestMessage;
+                        LstCelulaJson = response;
+                        /*
+                        var request2 = JsonConvert.SerializeObject(response.Content);
+                        ObjRespModelo = JsonConvert.DeserializeObject<RespuestaModelo>(request2);
+                        */
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MsmError = ex.Message;
+            }
+            return ObjRespModelo;
+        }
 
         #endregion
 

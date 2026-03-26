@@ -8,47 +8,41 @@ using System.Web.Mvc;
 
 namespace WebAppRamo.Controllers
 {
-    public class ClienteController : Controller
+    public class ProductoController : Controller
     {
         Consumo consu = new Consumo();
         string msmError = string.Empty;
 
+        // GET: Producto
         public ActionResult Index()
         {
             msmError = string.Empty;
-            List<cl_Cliente> LstClientes = new List<cl_Cliente>();
+            List<cl_Producto> LstClientes = new List<cl_Producto>();
 
-            LstClientes = consu.ListaCliente(ref msmError);
+            LstClientes = consu.ListaProducto(ref msmError);
 
             return View(LstClientes.OrderBy(x => x.Id).ToList());
         }
 
+        // GET: Producto/Details/5
         public ActionResult Details(int id)
         {
             return View();
         }
 
-        // GET: Cliente/Create
+        // GET: Producto/Create
         public ActionResult Create()
         {
             return View();
         }
 
-        // POST: Cliente/Create
+        // POST: Producto/Create
         [HttpPost]
-        public ActionResult Create(cl_Cliente collection)
+        public ActionResult Create(FormCollection collection)
         {
             try
             {
-                msmError = string.Empty;
-                List<cl_Cliente> LstCliente = new List<cl_Cliente>();
-                collection.IdTipoIdentificacion = 1;
-                collection.TendenciaCompra = "1";
-                collection.EstadoCivil = "C";
-                collection.UsuarioCreacion = "AngelValdiviezo";
-                LstCliente.Add(collection);
-
-                consu.RegistraCliente(LstCliente, ref msmError);
+                // TODO: Add insert logic here
 
                 return RedirectToAction("Index");
             }
@@ -58,26 +52,19 @@ namespace WebAppRamo.Controllers
             }
         }
 
-        // GET: Cliente/Edit/5
+        // GET: Producto/Edit/5
         public ActionResult Edit(int id)
         {
-            msmError = string.Empty;
-            cl_Cliente Cliente = new cl_Cliente();
-
-            Cliente = consu.ClienteById(id, ref msmError);
-
-            return View(Cliente);
+            return View();
         }
 
-        // POST: Cliente/Edit/5
+        // POST: Producto/Edit/5
         [HttpPost]
-        public ActionResult Edit(int id, cl_Cliente Cliente)
+        public ActionResult Edit(int id, FormCollection collection)
         {
             try
             {
-                msmError = string.Empty;
-                Cliente.UsuarioModificacion = "AngelValdiviezo";
-                consu.ModificaCliente(Cliente, ref msmError);
+                // TODO: Add update logic here
 
                 return RedirectToAction("Index");
             }
@@ -87,20 +74,19 @@ namespace WebAppRamo.Controllers
             }
         }
 
-        // GET: Cliente/Delete/5
+        // GET: Producto/Delete/5
         public ActionResult Delete(int id)
         {
             return View();
         }
 
-        // POST: Cliente/Delete/5
+        // POST: Producto/Delete/5
         [HttpPost]
         public ActionResult Delete(int id, FormCollection collection)
         {
             try
             {
-                msmError = string.Empty;
-                consu.EliminaCliente(id, ref msmError);
+                // TODO: Add delete logic here
 
                 return RedirectToAction("Index");
             }
