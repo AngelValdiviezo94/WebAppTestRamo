@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Datos;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -7,11 +8,24 @@ using System.Web.Security;
 
 namespace WebAppRamo.Controllers
 {
+    [AllowAnonymous]
     public class AccountController : Controller
     {
+        /*
         [HttpGet]
         public ActionResult Login()
         {
+            return View();
+        }
+        */
+
+        [AllowAnonymous]
+        public ActionResult Login()
+        {
+            if (Request.IsAuthenticated)
+            {
+                return RedirectToAction("Index", "Producto");
+            }
             return View();
         }
 
@@ -28,6 +42,26 @@ namespace WebAppRamo.Controllers
 
             ViewBag.Error = "Credenciales incorrectas";
             return View();
+        }
+
+        public ActionResult RegistraUsuario()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Registrar(cl_Usuario m) // Reemplaza 'TuModelo' por el nombre de tu clase
+        {
+            if (ModelState.IsValid)
+            {
+                // Tu lógica para guardar en la base de datos aquí
+                return RedirectToAction("Login");
+            }
+
+
+
+            return View(m);
         }
 
         [HttpPost]

@@ -24,6 +24,45 @@ namespace WebAppRamo
             return consumo;
         }
 
+        #region Usuario
+
+        public RespuestaModelo RegistraUsuario(cl_Usuario nuevo, ref string MsmError)
+        {
+            RespuestaModelo ObjRespModelo = new RespuestaModelo();
+            string MnsRetorno = string.Empty;
+            RutaFinal = string.Empty;
+            RutaFinal = string.Concat(serviceUrl, "api/Usuario/");
+
+            try
+            {
+                var request = JsonConvert.SerializeObject(nuevo);
+                var content = new StringContent(request, Encoding.UTF8, "application/json");
+                var client = new HttpClient();
+                //client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(tokenType, accessToken);
+                client.BaseAddress = new Uri(RutaFinal);
+                var url = string.Format("{0}{1}", RutaFinal, "RegistraUsuario");
+                //var response = client.PostAsync(url, content);
+                var response = Task.Run(async () => await client.PostAsync(url, content)).ConfigureAwait(false).GetAwaiter().GetResult();
+
+                if (response.IsSuccessStatusCode)
+                {
+                    var response2 = response.Content.ReadAsStringAsync().Result;
+                    var re = response.RequestMessage;
+                    var request2 = JsonConvert.SerializeObject(response.Content);
+                    ObjRespModelo = JsonConvert.DeserializeObject<RespuestaModelo>(request2);
+                }
+            }
+            catch (Exception ex)
+            {
+                ObjRespModelo.ProcesoExitoso = false;
+                ObjRespModelo.MensajeError = ex.Message;
+            }
+            return ObjRespModelo;
+        }
+
+
+        #endregion
+
         #region Clientes
         public List<cl_Cliente> ListaCliente(ref string MsmError)
         {
