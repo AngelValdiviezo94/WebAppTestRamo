@@ -8,5 +8,7 @@ namespace Datos
         public int IdProd { get; set; }
         public int Cantidad { get; set; }
         public double PrecioUnitario { get; set; }
+        public string NombreProd { get; set; }
+        public string CodProd { get; set; }
     }
 }

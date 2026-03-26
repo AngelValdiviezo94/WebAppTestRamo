@@ -1,0 +1,77 @@
+﻿@model Datos.cl_CarritoCab
+
+@{
+    ViewBag.Title = "Carrito de Compras";
+}
+
+<div class="card-container">
+    <div class="card-header d-flex justify-content-between align-items-end">
+        <h2 class="card-title" style="display: block !important; visibility: visible !important;">Carrito</h2>
+        <span class="price-label" style="display: block !important; visibility: visible !important;">Precio</span>
+    </div>
+    <hr />
+
+    @if (Model.LstCarritoDet != null && Model.LstCarritoDet.Any())
+    {
+        foreach (var item in Model.LstCarritoDet)
+        {
+            <div class="cart-item d-flex mb-4" id="row-@item.Id">
+
+
+                <div class="product-details flex-grow-1 ms-3">
+                    <div class="d-flex justify-content-between align-items-start">
+                        <div>
+                            @* Aquí idealmente tendrías una propiedad 'ProductoNombre' en tu Detalle *@
+                            <h3 class="product-name">ID Producto: @item.IdProd - @item.NombreProd</h3>
+                            <p class="stock-status text-success mb-1">Disponible</p>
+                            <p class="shipping-info mb-1 text-dark d-block" style="display: block !important; visibility: visible !important;">
+                                Envío GRATIS disponible para este artículo.
+                            </p>
+
+                            <div class="form-check p-0 mb-2 d-flex align-items-center">
+                                <input type="checkbox" id="gift-@item.Id" class="me-2">
+                                <label for="gift-@item.Id" class="text-dark" style="font-size: 12px; cursor: pointer; display: inline-block;">
+                                    Es un regalo <a href="#" class="text-primary" style="text-decoration: none;">Más información</a>
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="price-block text-end">
+                            <div class="current-price">@item.PrecioUnitario.ToString("C")</div>
+                        </div>
+                    </div>
+
+                    <div class="product-actions d-flex align-items-center mt-2">
+                        @* Componente de cantidad usando tu propiedad 'Cantidad' *@
+                        <div class="quantity-selector">
+                            <button type="button" class="btn-qty" onclick="UpdateQty(@item.Id, -1)">
+                                @if (item.Cantidad <= 1)
+                                {<i class="bi bi-trash3"></i> }
+                                else
+                                { <span>-</span>}
+                            </button>
+                            <span class="qty-value" id="qty-@item.Id">@item.Cantidad</span>
+                            <button type="button" class="btn-qty" onclick="UpdateQty(@item.Id, 1)">+</button>
+                        </div>
+
+                        <div class="action-links ms-3">
+                            <a href="javascript:void(0)" onclick="RemoveItem(@item.Id)">Eliminar</a>
+                            <span class="separator">|</span>
+                            <a href="#">Guardar para más tarde</a>
+                            <span class="separator">|</span>
+                            <a href="#">Compartir</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <hr />
+        }
+        <a href="@Url.Action("PagoCarrito", "Carrito")" class="btn-checkout" style="text-decoration: none; display: inline-block; text-align: center;">
+            Proceder al pago
+        </a>
+    }
+    else
+    {
+        <div class="alert alert-info">Tu carrito está vacío.</div>
+    }
+</div>

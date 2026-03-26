@@ -17,7 +17,30 @@ namespace WebAppRamo.Controllers
         // GET: Carrito
         public ActionResult Index()
         {
-            return View();
+            msmError = string.Empty;
+            cl_CarritoCab ObjCarrito = new cl_CarritoCab();
+
+            ObjCarrito = consu.Carrito(1, ref msmError);
+            return View(ObjCarrito);
+        }
+
+        // CarritoController.cs
+        [ChildActionOnly] // Asegura que solo se pueda llamar desde una vista
+        public ActionResult CartSummary()
+        {
+            int conteo = 0;
+
+            msmError = string.Empty;
+            cl_CarritoCab ObjCarrito = new cl_CarritoCab();
+
+            ObjCarrito = consu.Carrito(1, ref msmError);
+
+            if (ObjCarrito != null && ObjCarrito.LstCarritoDet != null)
+            {
+                conteo = ObjCarrito.LstCarritoDet.Sum(x => x.Cantidad);
+            }
+
+            return PartialView("_CartSummary", conteo);
         }
 
         // GET: Carrito/Details/5
@@ -124,6 +147,22 @@ namespace WebAppRamo.Controllers
                 return View();
             }
         }
+
+        [HttpPost]
+        public ActionResult PagoCarrito(FormCollection collection)
+        {
+            try
+            {
+                // TODO: Add insert logic here
+
+                return RedirectToAction("Index");
+            }
+            catch
+            {
+                return View();
+            }
+        }
+
 
     }
 }

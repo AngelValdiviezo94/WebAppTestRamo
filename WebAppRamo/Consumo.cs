@@ -471,7 +471,38 @@ namespace WebAppRamo
         #endregion
 
         #region Carrito
-        
+
+        public cl_CarritoCab Carrito(int Id, ref string MsmError)
+        {
+            cl_CarritoCab ObjDenominacion = new cl_CarritoCab();
+            RutaFinal = string.Empty;
+            RutaFinal = string.Concat(serviceUrl, "api/Carrito/ConsultaCarrito?id=", Id + "");
+
+            string LstCelulaJson = string.Empty;
+            try
+            {
+                using (HttpClient httpCliente = new HttpClient())
+                {
+                    httpCliente.BaseAddress = new Uri(RutaFinal);
+                    httpCliente.Timeout = new TimeSpan(0, 2, 0);
+                    var request = httpCliente.GetAsync(RutaFinal).Result;
+                    if (request.IsSuccessStatusCode)
+                    {
+                        var response = request.Content.ReadAsStringAsync().Result;
+                        var re = request.RequestMessage;
+                        LstCelulaJson = response;
+                        ObjDenominacion = JsonConvert.DeserializeObject<cl_CarritoCab>(response);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MsmError = ex.Message;
+            }
+            return ObjDenominacion;
+        }
+
+
         public RespuestaModelo RegistraCarrito(cl_CarritoCab nuevo, ref string MsmError)
         {
             RespuestaModelo ObjRespModelo = new RespuestaModelo();

@@ -104,11 +104,13 @@
 
                 var nombre = $(this).data("nombre");
 
+                var contadorInicializado = $("#cart-count").text();
+
                 // Incrementar contador
-                contador++;
+                contadorInicializado++;
 
                 // Actualizar visualmente el badge naranja
-                $("#cart-count").text(contador);
+                $("#cart-count").text(contadorInicializado);
 
                 // Animación simple para que el usuario note el cambio
                 $("#cart-count").fadeOut(100).fadeIn(100);
@@ -121,17 +123,18 @@
                     type: 'POST',
                     data: { id: idProducto, precio: precio_unitario },
                     success: function (response) {
-                        if (response.success) {
-                            // Solo si el servidor confirma el guardado, actualizamos la UI
-                            var nuevoTotal = response.cantidadTotal;
+                        alert("Producto agregado al carrito");
+                        //if (response.success) {
+                        //    // Solo si el servidor confirma el guardado, actualizamos la UI
+                        //    var nuevoTotal = response.cantidadTotal;
 
-                            $("#cart-count").text(nuevoTotal);
-                            $("#cart-count").fadeOut(100).fadeIn(100);
+                        //    $("#cart-count").text(nuevoTotal);
+                        //    $("#cart-count").fadeOut(100).fadeIn(100);
 
-                            console.log("Confirmado: " + nombre + " añadido.");
-                        } else {
-                            alert("Error: " + response.message);
-                        }
+                        //    console.log("Confirmado: " + nombre + " añadido.");
+                        //} else {
+                        //    alert("Error: " + response.message);
+                        //}
                     },
                     error: function () {
                         alert("No se pudo conectar con el servidor.");
